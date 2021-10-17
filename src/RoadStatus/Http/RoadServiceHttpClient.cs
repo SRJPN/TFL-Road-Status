@@ -1,16 +1,15 @@
 using System.Net.Http;
-using RoadStatus.HttpClients.Interfaces;
 using System.Threading.Tasks;
-using RoadStatus.Http;
+using RoadStatus.Http.Interfaces;
 
-namespace RoadStatus.HttpClients
+namespace RoadStatus.Http
 {
-    public class RoadServiceHttpClient : IRoadServiceHttpClient
+    public class RoadStatusHttpClient : IRoadStatusHttpClient
     {
         private readonly IHttpClient httpClient;
         private readonly IAppSettings configuration;
 
-        public RoadServiceHttpClient(IHttpClient httpClient, IAppSettings configuration)
+        public RoadStatusHttpClient(IHttpClient httpClient, IAppSettings configuration)
         {
             this.httpClient = httpClient;
             this.configuration = configuration;

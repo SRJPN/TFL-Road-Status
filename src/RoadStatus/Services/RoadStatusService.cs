@@ -2,16 +2,16 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using RoadStatus.HttpClients.Interfaces;
+using RoadStatus.Http.Interfaces;
 using RoadStatus.Models;
 
 namespace RoadStatus.Services
 {
     public class RoadStatusService : IRoadStatusService
     {
-        private readonly IRoadServiceHttpClient httpClient;
+        private readonly IRoadStatusHttpClient httpClient;
 
-        public RoadStatusService(IRoadServiceHttpClient httpClient)
+        public RoadStatusService(IRoadStatusHttpClient httpClient)
         {
             this.httpClient = httpClient;
         }

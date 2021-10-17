@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http;
 using Moq;
-using RoadStatus.HttpClients.Interfaces;
+using RoadStatus.Http.Interfaces;
 using RoadStatus.Models;
 using RoadStatus.Services;
 using Xunit;
@@ -10,11 +10,11 @@ namespace RoadStatus.Test.Services
 {
     public class RoadStatusServiceTests
     {
-        private Mock<IRoadServiceHttpClient> clientMock;
+        private Mock<IRoadStatusHttpClient> clientMock;
 
         public RoadStatusServiceTests()
         {
-            clientMock = new Mock<IRoadServiceHttpClient>();
+            clientMock = new Mock<IRoadStatusHttpClient>();
         }
 
         [Fact]

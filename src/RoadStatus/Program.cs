@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RoadStatus.Http;
-using RoadStatus.HttpClients;
-using RoadStatus.HttpClients.Interfaces;
+using RoadStatus.Http.Interfaces;
 using RoadStatus.Services;
 
 namespace RoadStatus
@@ -40,7 +39,7 @@ namespace RoadStatus
             var services = new ServiceCollection();
 
             services.AddSingleton<IAppSettings>(_ => config.Get<AppSettings>());
-            services.AddTransient<IRoadServiceHttpClient, RoadServiceHttpClient>();
+            services.AddTransient<IRoadStatusHttpClient, RoadStatusHttpClient>();
             services.AddTransient<IHttpClient, HttpClientWrapper>();
             services.AddTransient<IRoadStatusService, RoadStatusService>();
             services.AddTransient<HttpClient>(_ => new HttpClient());

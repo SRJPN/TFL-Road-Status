@@ -1,9 +1,9 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace RoadStatus.HttpClients.Interfaces
+namespace RoadStatus.Http.Interfaces
 {
-    public interface IRoadServiceHttpClient
+    public interface IRoadStatusHttpClient
     {
         Task<HttpResponseMessage> GetRoadStatusAsync(string roadId);
     }

@@ -1,12 +1,11 @@
 using System.Net.Http;
 using Moq;
 using RoadStatus.Http;
-using RoadStatus.HttpClients;
 using Xunit;
 
-namespace RoadStatus.Test
+namespace RoadStatus.Test.Http
 {
-    public class RoadServiceHttpClientTests
+    public class RoadStatusHttpClientTests
     {
         private const string BASE_URL = "http://some-base-url/Road";
         private const string APP_ID = "app_id";
@@ -14,7 +13,7 @@ namespace RoadStatus.Test
         private Mock<IAppSettings> configuration;
         private Mock<IHttpClient> httpClientMock;
 
-        public RoadServiceHttpClientTests()
+        public RoadStatusHttpClientTests()
         {
             httpClientMock = new Mock<IHttpClient>();
             httpClientMock.Setup(x => x.SendAsync(It.IsAny<HttpRequestMessage>())).ReturnsAsync(new HttpResponseMessage());
@@ -28,7 +27,7 @@ namespace RoadStatus.Test
         [Fact]
         public async void GetRoadStatusAsync_ShouldRequestRoadStatusForGivenRoadId()
         {
-            var client = new RoadServiceHttpClient(httpClientMock.Object, configuration.Object);
+            var client = new RoadStatusHttpClient(httpClientMock.Object, configuration.Object);
 
             var response = await client.GetRoadStatusAsync("some-valid-road-id");
 
@@ -39,7 +38,7 @@ namespace RoadStatus.Test
         [Fact]
         public async void GetRoadStatusAsync_ShouldAddTokenAndAppIdAsQueryParameters()
         {
-            var client = new RoadServiceHttpClient(httpClientMock.Object, configuration.Object);
+            var client = new RoadStatusHttpClient(httpClientMock.Object, configuration.Object);
 
             var response = await client.GetRoadStatusAsync("some-valid-road-id");
 
