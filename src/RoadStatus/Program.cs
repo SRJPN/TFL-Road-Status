@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,9 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using RoadStatus.Http;
 using RoadStatus.HttpClients;
 using RoadStatus.HttpClients.Interfaces;
+using RoadStatus.Services;
 
 namespace RoadStatus
 {
+    [ExcludeFromCodeCoverage]
     class Program
     {
         private static IConfigurationRoot config;
@@ -19,10 +22,9 @@ namespace RoadStatus
             InitConfig();
             ServiceProvider serviceProvider = RegisterServices();
 
-            var httpResponseMessage = await serviceProvider.GetService<IRoadServiceHttpClient>().GetRoadStatusAsync("A2");
+            var response = await serviceProvider.GetService<IRoadStatusService>().GetRoadStatusAsync(args[0]);
 
-            Console.WriteLine(httpResponseMessage.StatusCode);
-            Console.WriteLine(await httpResponseMessage.Content.ReadAsStringAsync());
+            Console.WriteLine(response.DisplayStatus());
         }
 
         private static void InitConfig()
@@ -40,6 +42,7 @@ namespace RoadStatus
             services.AddSingleton<IAppSettings>(_ => config.Get<AppSettings>());
             services.AddTransient<IRoadServiceHttpClient, RoadServiceHttpClient>();
             services.AddTransient<IHttpClient, HttpClientWrapper>();
+            services.AddTransient<IRoadStatusService, RoadStatusService>();
             services.AddTransient<HttpClient>(_ => new HttpClient());
             return services.BuildServiceProvider();
         }
