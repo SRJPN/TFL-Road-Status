@@ -29,7 +29,6 @@ namespace RoadStatus
         private static void InitConfig()
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json");
             config = builder.Build();
         }

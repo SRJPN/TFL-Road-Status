@@ -1,8 +1,10 @@
-﻿using System.Net.Http;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace RoadStatus.Http
 {
+    [ExcludeFromCodeCoverage]
     public class HttpClientWrapper : IHttpClient
     {
         private readonly HttpClient _httpClient;
