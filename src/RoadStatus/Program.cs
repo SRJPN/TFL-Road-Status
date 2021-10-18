@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RoadStatus.Http;
 using RoadStatus.Http.Interfaces;
+using RoadStatus.Models;
 using RoadStatus.Services;
 
 namespace RoadStatus
@@ -16,14 +17,25 @@ namespace RoadStatus
     {
         private static IConfigurationRoot config;
 
-        public static async Task Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
             InitConfig();
             ServiceProvider serviceProvider = RegisterServices();
 
             var response = await serviceProvider.GetService<IRoadStatusService>().GetRoadStatusAsync(args[0]);
 
+            return PrintResponse(response);
+        }
+
+        private static int PrintResponse(IRoadStatusResponse response)
+        {
+            if (response is IErrorResponse)
+            {
+                Console.WriteLine(response.DisplayStatus());
+                return 1;
+            }
             Console.WriteLine(response.DisplayStatus());
+            return 0;
         }
 
         private static void InitConfig()

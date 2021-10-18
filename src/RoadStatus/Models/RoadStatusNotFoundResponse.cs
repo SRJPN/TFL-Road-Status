@@ -1,6 +1,6 @@
 namespace RoadStatus.Models
 {
-    public class RoadStatusNotFoundResponse : IRoadStatusResponse
+    public class RoadStatusNotFoundResponse : IRoadStatusResponse, IErrorResponse
     {
         public string DisplayName { get; set; }
         public string DisplayStatus()
